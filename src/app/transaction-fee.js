@@ -44,22 +44,11 @@ export class TransactionFee {
 
     this.component = component;
 
-    // Add new field
+    this.createField();
 
-    if (!!this.options.position) {
-      let field_base = document.querySelector(this.options.position);
-      if (!field_base) {
-        return false;
-      }
-      field_base.parentNode.insertBefore(component, field_base.nextSibling);
-    } else {
-      let field_base = document
-        .querySelector(".en__submit")
-        .closest(".en__component");
-      field_base.parentNode.insertBefore(component, field_base);
-    }
     // Load Values From Cookies
     window.setTimeout(this.loadCookies.bind(this), 500);
+
     // Use enOnSubmit
     if (this.options.enOnSubmit) {
       window.enOnSubmit = function() {
@@ -72,6 +61,25 @@ export class TransactionFee {
   shouldRun() {
     // if the "Other Donation" amount field is not present on the page our code will do nothing as it can not run
     return !!document.querySelector(".en__field__input--other");
+  }
+
+  createField() {
+    // Add new field
+    if (!!this.options.position) {
+      let field_base = document.querySelector(this.options.position);
+      if (!field_base) {
+        return false;
+      }
+      field_base.parentNode.insertBefore(
+        this.component,
+        field_base.nextSibling
+      );
+    } else {
+      let field_base = document
+        .querySelector(".en__submit")
+        .closest(".en__component");
+      field_base.parentNode.insertBefore(this.component, field_base);
+    }
   }
 
   // Check / Uncheck the Transaction Fee Checkbox
