@@ -121,7 +121,7 @@ export class TransactionFee {
     let amount = document.querySelector(
       "[name='transaction.donationAmt']:checked"
     );
-    if (amount.value == "Other") {
+    if (amount.value == "Other" || amount.value == "") {
       let otherAmount = parseFloat(
         document.querySelector('input[name="transaction.donationAmt.other"]')
           .value
@@ -145,7 +145,7 @@ export class TransactionFee {
     });
     if (!found) {
       let otherAmount = document.querySelector(
-        "[name='transaction.donationAmt'][value='Other']"
+        "[name='transaction.donationAmt'][value='Other' i], [name='transaction.donationAmt'][value='']"
       );
       // Set Other
       otherAmount.click();
@@ -153,7 +153,7 @@ export class TransactionFee {
       // Set Amount
       document.querySelector(
         '[name="transaction.donationAmt.other"]'
-      ).value = amount;
+      ).value = parseFloat(amount).toFixed(2);
     }
     return true;
   }
